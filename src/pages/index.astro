@@ -10,7 +10,9 @@ const { hero, client_logos, mission, services_triptych, cta } = page.data;
 ---
 
 <BaseLayout title={page.data.title} description={page.data.description}>
-  <Hero {...hero} />
+  <editable-component data-component="hero" data-prop="hero">
+    <Hero {...hero} />
+  </editable-component>
 
   {client_logos && client_logos.length > 0 && (
     <section class="py-12 bg-gray-50">
@@ -82,5 +84,9 @@ const { hero, client_logos, mission, services_triptych, cta } = page.data;
     </section>
   )}
 
-  {cta && <CTA {...cta} />}
+  {cta && (
+    <editable-component data-component="cta" data-prop="cta">
+      <CTA {...cta} />
+    </editable-component>
+  )}
 </BaseLayout>
