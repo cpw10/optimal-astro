@@ -1,0 +1,173 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/CloudCannon/configuration-types/main/cloudcannon-config.schema.json
+
+paths:
+  static: public
+  uploads: public/images
+
+collections_config:
+  pages:
+    path: src/content/pages
+    url: "/[slug]/"
+    schemas:
+      default:
+        path: .cloudcannon/schemas/page.md
+        name: Page
+      homepage:
+        path: .cloudcannon/schemas/homepage.md
+        name: Homepage
+      contact:
+        path: .cloudcannon/schemas/contact.md
+        name: Contact Page
+    add_options:
+      - name: Page
+        schema: default
+
+  services:
+    path: src/content/services
+    url: "/services/[slug]/"
+    schemas:
+      default:
+        path: .cloudcannon/schemas/service.md
+        name: Service
+    add_options:
+      - name: Service
+        schema: default
+
+  blog:
+    path: src/content/blog
+    url: "/blog/[slug]/"
+    schemas:
+      default:
+        path: .cloudcannon/schemas/blog-post.md
+        name: Blog Post
+    add_options:
+      - name: Blog Post
+        schema: default
+
+  team:
+    path: src/content/team
+    _enabled_editors:
+      - data
+    schemas:
+      default:
+        path: .cloudcannon/schemas/team-member.md
+        name: Team Member
+    add_options:
+      - name: Team Member
+        schema: default
+
+  case-studies:
+    path: src/content/case-studies
+    url: "/case-studies/[slug]/"
+    schemas:
+      default:
+        path: .cloudcannon/schemas/case-study.md
+        name: Case Study
+    add_options:
+      - name: Case Study
+        schema: default
+
+collection_groups:
+  - heading: Content
+    collections:
+      - pages
+      - blog
+  - heading: Services & Work
+    collections:
+      - services
+      - case-studies
+  - heading: People
+    collections:
+      - team
+
+_inputs:
+  title:
+    type: text
+  description:
+    type: textarea
+  meta_title:
+    type: text
+    label: SEO Title
+  meta_description:
+    type: textarea
+    label: SEO Description
+  date:
+    type: datetime
+  image:
+    type: image
+  icon:
+    type: image
+  photo:
+    type: image
+  logo:
+    type: image
+  tags:
+    type: multiselect
+    options:
+      values: _select_data.tags
+  category:
+    type: select
+    options:
+      values: _select_data.team_categories
+  author:
+    type: text
+  industry:
+    type: text
+  draft:
+    type: switch
+  _schema:
+    hidden: true
+  layout:
+    hidden: true
+  order:
+    type: number
+
+_select_data:
+  team_categories:
+    - Leadership
+    - Analysts
+    - Front End Performance Engineers
+    - Load & Capacity Engineers
+    - EdgeOps
+    - Project Management
+    - Administration
+  tags:
+    - Performance
+    - Optimization
+    - Core Web Vitals
+    - CDN
+    - Load Testing
+    - SEO
+    - Google
+    - China
+    - Compression
+    - CSS
+    - JavaScript
+
+_structures:
+  services_triptych:
+    values:
+      - label: Service Block
+        icon: dashboard
+        value:
+          title:
+          description:
+          link:
+
+  sub_services:
+    values:
+      - label: Sub-Service
+        icon: subdirectory_arrow_right
+        value:
+          title:
+          description:
+          link:
+          icon:
+
+  client_logos:
+    values:
+      - label: Client Logo
+        icon: business
+        value:
+          name:
+          logo:

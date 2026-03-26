@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const team = await getCollection('team');
+const sortedTeam = team.sort((a, b) => (a.data.order || 99) - (b.data.order || 99));
+
+const categories = [...new Set(sortedTeam.map((m) => m.data.category))];
+---
+
+<BaseLayout title="Team | Optimal" description="Meet the Optimal team">
+  <section class="py-16">
+    <div class="container-custom">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Our Team</h1>
+      <p class="text-xl text-gray-600 mb-12">
+        Meet the experts behind Optimal's web performance solutions
+      </p>
+
+      {categories.map((category) => (
+        <div class="mb-12">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">{category}</h2>
+          <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {sortedTeam
+              .filter((m) => m.data.category === category)
+              .map((member) => (
+                <div class="text-center">
+                  <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-gray-200 overflow-hidden">
+                    {member.data.photo ? (
+                      <img
+                        src={member.data.photo}
+                        alt={member.data.name}
+                        class="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div class="w-full h-full flex items-center justify-center text-gray-400">
+                        <svg class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+                  <h3 class="font-semibold text-gray-900">{member.data.name}</h3>
+                  <p class="text-sm text-gray-600">{member.data.title}</p>
+                </div>
+              ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

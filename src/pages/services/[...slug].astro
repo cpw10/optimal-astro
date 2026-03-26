@@ -1,0 +1,84 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceCard from '../../components/widgets/ServiceCard.astro';
+
+export async function getStaticPaths() {
+  const services = await getCollection('services');
+  return services.map((service) => ({
+    params: { slug: service.id },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+const { Content } = await render(service);
+const allServices = await getCollection('services');
+const relatedServices = allServices.filter((s) => s.id !== service.id).slice(0, 6);
+---
+
+<BaseLayout title={`${service.data.title} | Optimal`} description={service.data.description}>
+  <section class="py-16">
+    <div class="container-custom">
+      <div class="max-w-3xl">
+        <h1
+          class="text-4xl font-bold text-gray-900 mb-6"
+          data-editable="text"
+          data-prop="title"
+        >
+          {service.data.title}
+        </h1>
+
+        <div
+          class="prose prose-lg"
+          data-editable="text"
+          data-type="block"
+          data-prop="@content"
+        >
+          <Content />
+        </div>
+      </div>
+
+      {service.data.sub_services && service.data.sub_services.length > 0 && (
+        <div class="mt-12">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Related Services</h2>
+          <div class="grid md:grid-cols-2 gap-6" data-editable="array" data-prop="sub_services">
+            {service.data.sub_services.map((sub) => (
+              <div class="bg-white rounded-lg border border-gray-100 p-6" data-editable="array-item">
+                <h3
+                  class="text-lg font-semibold text-gray-900 mb-2"
+                  data-editable="text"
+                  data-prop="title"
+                >
+                  {sub.title}
+                </h3>
+                {sub.description && (
+                  <p
+                    class="text-gray-600 text-sm"
+                    data-editable="text"
+                    data-prop="description"
+                  >
+                    {sub.description}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div class="mt-16">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Other Services</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          {relatedServices.map((s) => (
+            <ServiceCard
+              title={s.data.title}
+              description={s.data.description}
+              link={`/services/${s.id}/`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

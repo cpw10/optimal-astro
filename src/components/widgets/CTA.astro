@@ -1,0 +1,29 @@
+---
+interface Props {
+  headline: string;
+  button_text?: string;
+  button_link?: string;
+}
+
+const { headline, button_text, button_link } = Astro.props;
+---
+
+<section class="bg-blue-600 py-16">
+  <div class="container-custom text-center">
+    {headline && (
+      <h2
+        class="text-3xl font-bold text-white mb-6"
+        data-editable="text"
+        data-prop="headline"
+      >
+        {headline}
+      </h2>
+    )}
+
+    {button_text && button_link && (
+      <a href={button_link} class="btn bg-white text-blue-600 hover:bg-gray-100">
+        <span data-editable="text" data-prop="button_text">{button_text}</span>
+      </a>
+    )}
+  </div>
+</section>

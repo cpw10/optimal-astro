@@ -1,0 +1,97 @@
+---
+const footerLinks = {
+  services: [
+    { label: 'Web Performance Management', href: '/services/web-performance-management/' },
+    { label: 'Performance Reporting', href: '/services/web-performance-reporting/' },
+    { label: 'Performance Optimization', href: '/services/web-performance-optimization/' },
+    { label: 'CDN Consulting', href: '/services/cdn-consulting/' },
+  ],
+  company: [
+    { label: 'About', href: '/about/' },
+    { label: 'Team', href: '/team/' },
+    { label: 'Case Studies', href: '/case-studies/' },
+    { label: 'Blog', href: '/blog/' },
+  ],
+  legal: [
+    { label: 'Terms of Use', href: '/terms/' },
+    { label: 'Privacy Policy', href: '/privacy/' },
+  ],
+};
+
+const socialLinks = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/thisisoptimal.com' },
+  { label: 'Twitter', href: 'https://twitter.com/thisisoptimal' },
+];
+---
+
+<footer class="bg-gray-900 text-white">
+  <div class="container-custom py-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <h3 class="text-xl font-bold mb-4">Optimal</h3>
+        <p class="text-gray-400 text-sm">
+          Your partner in web performance excellence.
+        </p>
+        <div class="flex gap-4 mt-4">
+          {socialLinks.map((link) => (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-gray-400 hover:text-white transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h4 class="font-semibold mb-4">Services</h4>
+        <ul class="space-y-2">
+          {footerLinks.services.map((link) => (
+            <li>
+              <a href={link.href} class="text-gray-400 hover:text-white text-sm transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold mb-4">Company</h4>
+        <ul class="space-y-2">
+          {footerLinks.company.map((link) => (
+            <li>
+              <a href={link.href} class="text-gray-400 hover:text-white text-sm transition-colors">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold mb-4">Newsletter</h4>
+        <p class="text-gray-400 text-sm mb-4">
+          Keep up-to-date with the latest performance insights.
+        </p>
+        <form class="flex gap-2">
+          <input
+            type="email"
+            placeholder="your@email.com"
+            class="flex-1 px-3 py-2 rounded bg-gray-800 text-white placeholder-gray-500 text-sm"
+          />
+          <button type="submit" class="btn btn-primary text-sm">
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
+      <p>&copy; {new Date().getFullYear()} Optimal. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

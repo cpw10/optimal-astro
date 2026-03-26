@@ -1,0 +1,86 @@
+---
+import { getEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/widgets/Hero.astro';
+import ServiceCard from '../components/widgets/ServiceCard.astro';
+import CTA from '../components/widgets/CTA.astro';
+
+const page = await getEntry('pages', 'index');
+const { hero, client_logos, mission, services_triptych, cta } = page.data;
+---
+
+<BaseLayout title={page.data.title} description={page.data.description}>
+  <Hero {...hero} />
+
+  {client_logos && client_logos.length > 0 && (
+    <section class="py-12 bg-gray-50">
+      <div class="container-custom">
+        <p class="text-center text-gray-500 text-sm mb-8">Trusted by leading brands</p>
+        <div class="flex flex-wrap justify-center items-center gap-8">
+          {client_logos.map((client) => (
+            <div class="text-gray-400 font-semibold">{client.name}</div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {mission && (
+    <section class="py-16">
+      <div class="container-custom text-center">
+        <h2
+          class="text-3xl font-bold text-gray-900 mb-4"
+          data-editable="text"
+          data-prop="mission.headline"
+        >
+          {mission.headline}
+        </h2>
+        {mission.description && (
+          <p
+            class="text-xl text-gray-600 max-w-2xl mx-auto"
+            data-editable="text"
+            data-prop="mission.description"
+          >
+            {mission.description}
+          </p>
+        )}
+      </div>
+    </section>
+  )}
+
+  {services_triptych && services_triptych.length > 0 && (
+    <section class="py-16 bg-gray-50">
+      <div class="container-custom">
+        <div class="grid md:grid-cols-3 gap-8" data-editable="array" data-prop="services_triptych">
+          {services_triptych.map((service) => (
+            <div class="text-center p-6" data-editable="array-item">
+              <h3
+                class="text-xl font-semibold text-gray-900 mb-4"
+                data-editable="text"
+                data-prop="title"
+              >
+                {service.title}
+              </h3>
+              {service.description && (
+                <p
+                  class="text-gray-600"
+                  data-editable="text"
+                  data-prop="description"
+                >
+                  {service.description}
+                </p>
+              )}
+              {service.link && (
+                <a href={service.link} class="inline-flex items-center mt-4 text-blue-600 font-medium hover:underline">
+                  Learn more
+                </a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {cta && <CTA {...cta} />}
+</BaseLayout>

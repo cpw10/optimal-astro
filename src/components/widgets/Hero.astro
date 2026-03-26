@@ -1,0 +1,53 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  cta_text?: string;
+  cta_link?: string;
+  stat?: string;
+}
+
+const { title, subtitle, cta_text, cta_link, stat } = Astro.props;
+---
+
+<section class="bg-gradient-to-br from-blue-50 to-white py-20">
+  <div class="container-custom">
+    <div class="max-w-3xl">
+      {title && (
+        <h1
+          class="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+          data-editable="text"
+          data-prop="title"
+        >
+          {title}
+        </h1>
+      )}
+
+      {subtitle && (
+        <p
+          class="text-xl text-gray-600 mb-8"
+          data-editable="text"
+          data-prop="subtitle"
+        >
+          {subtitle}
+        </p>
+      )}
+
+      {cta_text && cta_link && (
+        <a href={cta_link} class="btn btn-primary">
+          <span data-editable="text" data-prop="cta_text">{cta_text}</span>
+        </a>
+      )}
+
+      {stat && (
+        <p
+          class="mt-8 text-sm text-gray-500 italic"
+          data-editable="text"
+          data-prop="stat"
+        >
+          {stat}
+        </p>
+      )}
+    </div>
+  </div>
+</section>

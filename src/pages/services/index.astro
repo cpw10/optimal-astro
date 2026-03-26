@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceCard from '../../components/widgets/ServiceCard.astro';
+
+const services = await getCollection('services');
+---
+
+<BaseLayout title="Services | Optimal" description="Web performance services from Optimal">
+  <section class="py-16">
+    <div class="container-custom">
+      <h1 class="text-4xl font-bold text-gray-900 mb-4">Our Services</h1>
+      <p class="text-xl text-gray-600 mb-12">
+        Comprehensive web performance solutions for your business
+      </p>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {services.map((service) => (
+          <ServiceCard
+            title={service.data.title}
+            description={service.data.description}
+            icon={service.data.icon}
+            link={`/services/${service.id}/`}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

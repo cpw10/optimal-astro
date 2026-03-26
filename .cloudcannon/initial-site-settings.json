@@ -1,0 +1,7 @@
+{
+  "$schema": "https://raw.githubusercontent.com/CloudCannon/configuration-types/main/dist/cloudcannon-initial-site-settings.schema.json",
+  "ssg": "astro",
+  "build_command": "npm run build",
+  "output_path": "dist",
+  "install_command": "npm install"
+}

@@ -1,0 +1,42 @@
+---
+const navItems = [
+  { label: 'Services', href: '/services/' },
+  { label: 'Case Studies', href: '/case-studies/' },
+  { label: 'Team', href: '/team/' },
+  { label: 'Blog', href: '/blog/' },
+  { label: 'Contact', href: '/contact/' },
+];
+---
+
+<header class="bg-white border-b border-gray-100">
+  <nav class="container-custom py-4">
+    <div class="flex items-center justify-between">
+      <a href="/" class="text-2xl font-bold text-blue-600">
+        Optimal
+      </a>
+
+      <ul class="hidden md:flex items-center gap-8">
+        {navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="text-gray-600 hover:text-blue-600 transition-colors"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <a href="/contact/" class="btn btn-primary hidden md:inline-flex">
+        Get in Touch
+      </a>
+
+      <button class="md:hidden p-2" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+</header>
